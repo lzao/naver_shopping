@@ -1,0 +1,5 @@
+pymysql==0.10.1
+requests==2.25.1
+selenium==3.141.0
+python-dotenv==0.17.1
+bs4==0.0.1

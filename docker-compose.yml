@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  python:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    container_name: python
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - python-network
+    tty: true
+
+  db:
+    build:
+      context: .
+      dockerfile: ./docker/data/Dockerfile
+    container_name: db
+    secrets:
+        - mysql-root
+        - mysql-user
+    environment:
+        MYSQL_DATABASE: python
+        MYSQL_USER: root
+        MYSQL_PASSWORD: /run/secrets/mysql-user
+        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql-root
+    ports:
+        - "3306:3306"
+    expose:
+        - "3306"
+    volumes:
+        - "./docker/data/data:/var/lib/data"
+        - "./docker/data/pw:/run/secrets"
+        - "./docker/data/logs:/var/log/data"
+    command: --sql_mode=""
+    restart: always
+    networks:
+        - python-network
+
+networks:
+    python-network:
+        driver: bridge
+
+secrets:
+  mysql-root:
+    file: ./docker/data/secrets/mysql-root
+  mysql-user:
+    file: ./docker/data/secrets/mysql-user

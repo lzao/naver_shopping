@@ -30,7 +30,7 @@ class Crawling(object):
             next_page = 1
             while True:
                 self.__driver = webdriver.Firefox(firefox_options=self.__options,
-                                                  executable_path=constant.ROOT_PATH + '/geckodriver.exe')
+                                                  executable_path=constant.ROOT_PATH + '/' + constant.DRIVER_FILE)
                 # 크롤링할 사이트의 url link를 가져옵니다
                 link = self.__get_crawl_link(next_page)
                 self.__driver.get(link)

@@ -8,6 +8,10 @@
 3. docker-compose up 으로 로컬 환경을 구축합니다.
 4. docker container 에 접속하여 python3 main.py 파일을 실행합니다.
 
+## OS 환경에 따라 webdriver 를 설정해야 합니다
+- mac or linux 의 경우 `geckodriver`
+- window 의 경우 `geckodriver.exe`
+
 
 ## Table
 ```sql
